@@ -15,8 +15,7 @@ const ALLOWED_ORIGINS = process.env.ALLOWED_ORIGINS ?
 if (NODE_ENV === 'production') {
   // Add your production frontend URLs
   ALLOWED_ORIGINS.push(
-    // 'https://your-frontend-domain.com',
-    // 'https://your-app.vercel.app',
+    'https://livestreaming-eight.vercel.app'
   );
 }
 
@@ -27,10 +26,14 @@ console.log('Port:', PORT);
 // CORS configuration
 const corsOptions = {
   origin: function (origin, callback) {
+    console.log('Request origin:', origin);
+    console.log('Allowed origins:', ALLOWED_ORIGINS);
+    
     // Allow requests with no origin (like mobile apps or curl requests)
     if (!origin) return callback(null, true);
     
     if (ALLOWED_ORIGINS.indexOf(origin) !== -1) {
+      console.log('Origin allowed:', origin);
       callback(null, true);
     } else {
       console.log('Blocked by CORS:', origin);
